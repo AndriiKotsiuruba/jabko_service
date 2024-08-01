@@ -1,0 +1,99 @@
+# Layer 0. Define default environment variables.
+ARG RUBY_VERSION=3.2.3
+ARG APP_HOME="/home/www/rails-app"
+ARG GEM_HOME="/usr/local/bundle"
+ARG NODE_MAJOR=20
+ARG APPLICATION_VERSION=develop
+
+# Layer 1. Download the base Ruby image as builder.
+FROM ruby:$RUBY_VERSION-slim as builder
+
+# Layer 2. Inherit the default arguments.
+ARG APP_HOME
+ARG GEM_HOME
+ARG NODE_MAJOR
+
+# Layer 3. Update the software packages and install necessary software for the web server.
+RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
+      build-essential \
+      libpq-dev \
+      gnupg \
+      curl \
+      nano \
+      chromium
+
+# Layer 4. Install NodeJS for builder.
+RUN mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
+    apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends nodejs && \
+    npm install -g yarn
+
+# Layer 5. Set the configuration options for the bundler.
+RUN echo "gem: --no-rdoc --no-ri" > /etc/gemrc
+
+# Layer 6. Set the home directory of the application as the working directory.
+WORKDIR ${APP_HOME}
+
+# Layer 7. Set the environment variables.
+ENV PATH=$GEM_HOME/bin:$GEM_HOME/gems/bin:$PATH \
+    APP_HOME=${APP_HOME}
+
+# Layer 9. Copy package.json and yarn.lock.
+COPY package.json yarn.lock ./
+
+# Layer 9. Install JavaScript dependencies.
+RUN yarn install
+
+# Layer 10. Copy Gemfile and Gemfile.lock.
+COPY Gemfile* ./
+
+# Layer 11. Install Ruby dependencies.
+RUN bundle check || bundle install --jobs 20 --retry 5 && \
+    rm -rf $GEM_HOME/cache/*.gem
+
+# Layer 12. Download the base Ruby image as runner.
+FROM ruby:$RUBY_VERSION-slim as runner
+
+# Layer 13. Inherit the default arguments.
+ARG APP_HOME
+ARG GEM_HOME
+ARG NODE_MAJOR
+ARG APPLICATION_VERSION
+
+# Layer 14. Install the necessary software for runtime.
+RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
+      libpq-dev \
+      curl \
+      gnupg \
+      nano \
+      git \
+      chromium
+
+# Layer 15. Install NodeJS for runtime.
+RUN mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
+    apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -yq nodejs && \
+    npm install -g yarn
+
+# Layer 16. Set the home directory of the application as the working directory.
+WORKDIR ${APP_HOME}
+
+# Layer 17. Copy gems from the builder to the runner.
+COPY --from=builder $GEM_HOME $GEM_HOME
+
+# Layer 18. Copy NodeJS modules from the builder to the runner.
+COPY --from=builder $APP_HOME/node_modules ./node_modules
+
+# Layer 19. Copy the application files.
+COPY . .
+
+# Layer 21. Set the environment variables.
+ENV APPLICATION_VERSION=${APPLICATION_VERSION}
+
+# Layer 20. Expose the application port.
+EXPOSE 3000/tcp
+
+# Layer 21. Start the application.
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

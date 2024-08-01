@@ -1,0 +1,52 @@
+{
+  "name": "app",
+  "private": true,
+  "devDependencies": {
+    "esbuild": "^0.23.0"
+  },
+  "scripts": {
+    "docker:exec": "docker-compose exec backend",
+    "docker:status": "docker-compose ps",
+    "docker:build": "docker-compose up --build",
+    "up": "docker-compose up",
+    "stop": "docker-compose stop",
+    "down": "docker-compose down",
+    "bash": "docker-compose exec backend bash",
+    "c": "docker-compose exec backend rails c",
+    "routes": "docker-compose exec backend rails routes",
+    "db:seed": "docker-compose exec backend rails db:seed",
+    "db:replant": "docker-compose exec backend rails db:seed:replant",
+    "db:migrate": "docker-compose exec backend rails db:migrate",
+    "db:rollback": "docker-compose exec backend rails db:rollback",
+    "db:reset": "docker-compose exec backend rails db:reset",
+    "rubocop": "docker-compose exec -e RAILS_ENV=test backend rubocop",
+    "ardoctor": "docker-compose exec backend bundle exec rake active_record_doctor",
+    "erblint": "docker-compose exec -e RAILS_ENV=test backend erblint --lint-all",
+    "jslint": "docker-compose exec backend yarn eslint app/javascript",
+    "rspec": "docker-compose exec -e RAILS_ENV=test backend rake parallel:spec",
+    "linters": "yarn rubocop && yarn ardoctor && yarn erblint && yarn jslint && yarn rspec",
+    "docs": "docker-compose exec -e SWAGGER_DRY_RUN=0 -e RAILS_ENV=test backend rails rswag",
+    "annotate": "docker-compose exec backend annotate --models",
+    "js:watch": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --watch",
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
+    "build:css:compile": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "build:css:prefix": "postcss ./app/assets/builds/application.css --use=autoprefixer --output=./app/assets/builds/application.css",
+    "build:css": "yarn build:css:compile && yarn build:css:prefix",
+    "watch:css": "nodemon --watch ./app/assets/stylesheets/ --ext scss --exec \"yarn build:css\""
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.5",
+    "@popperjs/core": "^2.11.8",
+    "autoprefixer": "^10.4.19",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "nodemon": "^3.1.4",
+    "postcss": "^8.4.40",
+    "postcss-cli": "^11.0.0",
+    "sass": "^1.77.8"
+  },
+  "browserslist": [
+    "defaults"
+  ]
+}
