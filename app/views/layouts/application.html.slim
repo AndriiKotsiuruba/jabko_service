@@ -3,7 +3,8 @@ html( data={'bs-theme': theme,
             controller: 'theme',
             'theme-target': 'document'})
   head
-    title JabkoService
+    title
+      = t 'app_name'
     = csrf_meta_tags
     = csp_meta_tag
 

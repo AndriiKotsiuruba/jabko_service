@@ -36,6 +36,9 @@ module JabkoService
     # Don't generate system test files.
     config.generators.system_tests = nil
 
+    I18n.available_locales = %i[en ua]
+    I18n.default_locale = :en
+
   end
 
 end
