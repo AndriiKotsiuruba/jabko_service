@@ -1,5 +1,7 @@
 doctype html
-html
+html( data={'bs-theme': theme,
+            controller: 'theme',
+            'theme-target': 'document'})
   head
     title JabkoService
     = csrf_meta_tags
@@ -8,4 +10,9 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", type: "module"
   body
-    = yield
+    = render 'includes/header'
+    = render 'includes/alerts'
+    div class="wrapper"
+      div class="content my-5"
+        = yield
+    = render 'includes/footer'

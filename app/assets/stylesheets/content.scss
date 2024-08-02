@@ -1,0 +1,9 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 70px);
+}
+.content {
+  padding-top: 40px;
+  flex: 1;
+}
