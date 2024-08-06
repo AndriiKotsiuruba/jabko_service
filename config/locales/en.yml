@@ -1,3 +1,5 @@
 en:
   app_name: JabkoService
-
+  welcome:
+    index:
+      title: Title
