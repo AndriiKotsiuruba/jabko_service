@@ -47,12 +47,10 @@
 |-------------------|-------------------------------------|
 | Frontend          | http://localhost:3000               |
 | Backoffice        | http://localhost:3000/admin         |
-| API               | http://localhost:3000/api/v1        |
 | Show Emails       | http://localhost:3000/letter_opener |
-| Swagger docs      | http://localhost:3000/api-docs      |
+|                   |                                     |
+| Production        | https://jabko-service.onrender.com  |
 
-## Project folder
- https://drive.google.com/drive/folders/1CZUGD0TDPywhjNvoHi7PT3SF0MSVI7zd
 
 ## Credentials
 

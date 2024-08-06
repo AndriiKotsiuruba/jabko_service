@@ -5,6 +5,13 @@ import Cookie from './modules/cookie';
 export default class extends Controller {
   static targets = [ 'switchBsThemeIcon', 'document', 'logo' ];
 
+  connect() {
+    this.logoPaths = {
+      light: this.element.dataset.themeLogoLight,
+      dark: this.element.dataset.themeLogoDark
+    };
+  }
+
   switchTheme() {
     let nextTheme = this.isDarkTheme() ? THEME.LIGHT : THEME.DARK;
 
@@ -23,7 +30,7 @@ export default class extends Controller {
 
   updateLogos(logos) {
     logos.forEach(logo => {
-      logo.setAttribute('src', "/assets/logo-" + this.theme() + ".svg");
+      logo.setAttribute('src', this.logoPaths[this.theme()]);
     });
   }
   
