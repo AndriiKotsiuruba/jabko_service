@@ -27,3 +27,9 @@
 /node_modules
 
 /.byebug_history
+
+/config/credentials/production.key
+
+/config/credentials/test.key
+
+/config/credentials/development.key
