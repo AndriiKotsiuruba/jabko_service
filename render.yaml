@@ -1,19 +1,32 @@
+# Exported from Render on 2024-08-06T09:09:43Z
 databases:
-  - name: postgres
-    ipAllowList: []
-    plan: free
-
+- name: jabko_service_postgres
+  plan: free
+  region: frankfurt
+  ipAllowList: []
+  postgresMajorVersion: "16"
 services:
-  - type: web
-    name: rails
-    env: ruby
-    buildCommand: "./render-build.sh"
-    startCommand: "bundle exec rails s"
-    plan: free
-    envVars:
-      - key: RAILS_MASTER_KEY
-        sync: false
-      - key: DB_HOST
-        fromDatabase:
-          name: postgres
-          property: connectionString
+- type: web
+  name: jabko_service
+  runtime: ruby
+  repo: https://github.com/AndriiKotsiuruba/jabko_service
+  plan: free
+  envVars:
+  - key: DB_NAME
+    sync: false
+  - key: DB_PASSWORD
+    fromDatabase:
+      name: jabko_service_postgres
+      property: password
+  - key: DB_USERNAME
+    sync: false
+  - key: RAILS_MASTER_KEY
+    sync: false
+  - key: DB_HOST
+    fromDatabase:
+      name: jabko_service_postgres
+      property: host
+  region: frankfurt
+  buildCommand: ./render-build.sh
+  startCommand: bundle exec rails s
+version: "1"
