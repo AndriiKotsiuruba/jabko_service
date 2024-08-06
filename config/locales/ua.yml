@@ -1,2 +1,5 @@
 ua:
   app_name: Ябко сервіс
+  welcome:
+    index:
+      title: Титулка
