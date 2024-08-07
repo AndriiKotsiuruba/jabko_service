@@ -9,9 +9,8 @@
 | Database         | PostgreSQL                                                                                             |
 | Server           | Puma                                                                                                   |
 | Testing Tools    | RSpec<br/>Shoulda Matchers<br/>WebMock<br/>FactoryBot<br/>Faker<br/>Swagger<br/>SimpleCov<br/>TestProf |
-| Linters          | Rubocop<br/>ERBLint<br/>ESLint                                                                         |
+| Linters          | Rubocop<br/>Slim-Lint<br/>ESLint                                                                       |
 | Upload / Storage | Shrine + S3                                                                                            |
-| Admin Panel      | ActiveAdmin                                                                                            |
 | Pagination       | Pagy                                                                                                   |
 | Authorization    | Pundit                                                                                                 |
 | Authentication   | Devise                                                                                                 |
@@ -46,7 +45,6 @@
 | Name              | Link                                |
 |-------------------|-------------------------------------|
 | Frontend          | http://localhost:3000               |
-| Backoffice        | http://localhost:3000/admin         |
 | Show Emails       | http://localhost:3000/letter_opener |
 |                   |                                     |
 | Production        | https://jabko-service.onrender.com  |
@@ -56,8 +54,7 @@
 
 | Name            | Login                     | Password  |
 |-----------------|---------------------------|-----------|
-| Frontend        | user@example.com          | Password1 |
-| Backoffice      | admin@example.com         | Password1 |
+| User            | user@example.com          | Password1 |
 
 ## Commands
 
@@ -91,13 +88,13 @@
 
 `yarn rubocop` - run Rubocop (you can use `-a` option to fix some issues)
 
-`yarn erblint` - run ERBLint (you can use `-a` option to fix some issues)
+`yarn slimlint` - run Slim-Lint
 
 `yarn jslint` - run ESLint (you can use `--fix` option to fix some issues)
 
 `yarn rspec` - run RSpec in parallel mode
 
-`yarn linters` - run linters and tests (rubocop, erblint, eslint, rspec)
+`yarn linters` - run linters and tests (rubocop, slimlint, eslint, rspec)
 
 `yarn docs` - run Swagger docs generating
 

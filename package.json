@@ -1,8 +1,11 @@
 {
-  "name": "app",
+  "name": "jabko_service",
   "private": true,
   "devDependencies": {
-    "esbuild": "^0.23.0"
+    "esbuild": "^0.23.0",
+    "eslint": "~8.56.0",
+    "eslint-config-airbnb-base": "~15.0.0",
+    "eslint-plugin-import": "~2.29.1"
   },
   "scripts": {
     "docker:exec": "docker-compose exec backend",
@@ -21,10 +24,10 @@
     "db:reset": "docker-compose exec backend rails db:reset",
     "rubocop": "docker-compose exec -e RAILS_ENV=test backend rubocop",
     "ardoctor": "docker-compose exec backend bundle exec rake active_record_doctor",
-    "erblint": "docker-compose exec -e RAILS_ENV=test backend erblint --lint-all",
+    "slimlint": "docker-compose exec -e RAILS_ENV=test backend slim-lint .",
     "jslint": "docker-compose exec backend yarn eslint app/javascript",
-    "rspec": "docker-compose exec -e RAILS_ENV=test backend rake parallel:spec",
-    "linters": "yarn rubocop && yarn ardoctor && yarn erblint && yarn jslint && yarn rspec",
+    "rspec": "docker-compose exec -e RAILS_ENV=test backend rspec",
+    "linters": "yarn rubocop && yarn slimlint && yarn jslint && yarn rspec",
     "docs": "docker-compose exec -e SWAGGER_DRY_RUN=0 -e RAILS_ENV=test backend rails rswag",
     "annotate": "docker-compose exec backend annotate --models",
     "js:watch": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --watch",
@@ -48,5 +51,8 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT"
 }

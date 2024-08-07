@@ -1,5 +1,10 @@
 ua:
   app_name: Ябко сервіс
-  welcome:
-    index:
-      title: Титулка
+  close: Закрити
+  locales:
+    en: Eng
+    ua: Укр
+  includes:
+    footer:
+      author: /Андрій Коцюруба
+      rights: '| Всі права захищені.'

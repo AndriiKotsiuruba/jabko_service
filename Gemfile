@@ -46,7 +46,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'bootsnap', require: false
 
 # Use Sass to process CSS
-# gem "sassc-rails"
+gem 'sassc-rails'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -71,8 +71,8 @@ group :development do
   gem 'rubocop-rails',       '~> 2.23', '>= 2.23.1', require: false
   gem 'rubocop-rspec',       '~> 2.26', '>= 2.26.1', require: false
 
-  # A tool to help lint your ERB or HTML files using the included linters or by writing your own.
-  gem 'erb_lint', '>= 0.5.0', require: false
+  # Configurable tool for writing clean and consistent Slim templates
+  gem 'slim_lint', '~> 0.27.0'
 
   # Help to kill unused eager loading
   gem 'bullet', '~> 7.1', '>= 7.1.6'

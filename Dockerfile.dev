@@ -68,7 +68,10 @@ RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -yq --n
       gnupg \
       nano \
       git \
-      chromium
+      chromium \
+      build-essential \
+      libsass1 \
+      libsass-dev
 
 # Layer 15. Install NodeJS for runtime.
 RUN mkdir -p /etc/apt/keyrings && \

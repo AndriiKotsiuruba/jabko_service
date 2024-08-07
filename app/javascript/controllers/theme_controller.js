@@ -1,19 +1,19 @@
-import { Controller } from '@hotwired/stimulus'
+import { Controller } from '@hotwired/stimulus';
 import { THEME } from './modules/constants';
 import Cookie from './modules/cookie';
 
 export default class extends Controller {
-  static targets = [ 'switchBsThemeIcon', 'document', 'logo' ];
+  static targets = ['switchBsThemeIcon', 'document', 'logo'];
 
   connect() {
     this.logoPaths = {
       light: this.element.dataset.themeLogoLight,
-      dark: this.element.dataset.themeLogoDark
+      dark: this.element.dataset.themeLogoDark,
     };
   }
 
   switchTheme() {
-    let nextTheme = this.isDarkTheme() ? THEME.LIGHT : THEME.DARK;
+    const nextTheme = this.isDarkTheme() ? THEME.LIGHT : THEME.DARK;
 
     Cookie.set(THEME.COOKIE_NAME, nextTheme, 7);
 
@@ -33,7 +33,7 @@ export default class extends Controller {
       logo.setAttribute('src', this.logoPaths[this.theme()]);
     });
   }
-  
+
   updateSwitchBsThemeIcon() {
     this.switchBsThemeIconTarget.classList.toggle('bi-moon-stars-fill', !this.isDarkTheme());
     this.switchBsThemeIconTarget.classList.toggle('bi-sun-fill', this.isDarkTheme());
