@@ -1,0 +1,75 @@
+version: 2.1
+
+jobs:
+  build:
+    working_directory: ~/app
+    docker:
+      - image: cimg/ruby:3.2.3-node
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_PATH: vendor/bundle
+          BUNDLE_RETRY: 3
+          BUNDLER_VERSION: 2.2.3
+          RAILS_ENV: test
+          RAILS_MASTER_KEY: $RAILS_MASTER_KEY
+      - image: circleci/postgres:13.2
+        environment:
+          POSTGRES_PASSWORD: password
+    steps:
+      - checkout
+
+      # Restore bundle cache
+      - restore_cache:
+          key: app-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Configure bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+      # Yarn install
+      - run:
+          name: Yarn install
+          command: yarn install
+
+      # Bundle install
+      - run:
+          name: Bundle install
+          command: bundle install
+
+      # Store bundle cache
+      - save_cache:
+          key: app-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      # Wait for postgres
+      - run:
+          name: Wait for postgres
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      # Config database
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+
+      # Rubocop
+      - run:
+          name: Run Rubocop
+          command: bundle exec rubocop
+
+      # Slim-Lint
+      - run:
+          name: Run Slim-Lint
+          command: bundle exec slim-lint app/views
+
+      # ESLint
+      - run:
+          name: Run ESLint
+          command: yarn eslint app/javascript
+
+      # Rspec
+      - run:
+          name: Run RSpec
+          command: |
+            bundle exec rspec
