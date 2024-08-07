@@ -1,24 +1,24 @@
 doctype html
-html( data={ 'bs-theme': theme,
-             controller: 'theme',
-             'theme-target': 'document',
-             'theme-logo-light': asset_path('logo-light.svg'),
-             'theme-logo-dark': asset_path('logo-dark.svg') })
+html( data={ "bs-theme": theme,
+             controller: "theme",
+             "theme-target": "document",
+             "theme-logo-light": asset_path("logo-light.svg"),
+             "theme-logo-dark": asset_path("logo-dark.svg") })
   head
     title
-      = t 'app_name'
-    meta name='viewport' content='width=device-width,initial-scale=1'>
+      = t "app_name"
+    meta name="viewport" content="width=device-width,initial-scale=1">
     = csrf_meta_tags
     = csp_meta_tag
 
-    = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
-    = javascript_include_tag 'application',
-                             'data-turbo-track': 'reload',
-                             type: 'module'
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "application",
+                             "data-turbo-track": "reload",
+                             type: "module"
   body
-    = render 'includes/header'
-    = render 'includes/alerts'
+    = render "includes/header"
+    = render "includes/alerts"
     .wrapper
       .content.container.my-5
         = yield
-    = render 'includes/footer'
+    = render "includes/footer"

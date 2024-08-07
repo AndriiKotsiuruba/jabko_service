@@ -1,13 +1,13 @@
 .alerts
   - if notice
-    .alert.alert-success.alert-dismissible.fade.show role='alert'
+    .alert.alert-success.alert-dismissible.fade.show role="alert"
       = notice
-      button.btn-close(type='button'
-                       aria-label=t('close')
-                       data={ 'bs-dismiss': 'alert' })
+      button.btn-close(type="button"
+                       aria-label=t("close")
+                       data={ "bs-dismiss": "alert" })
   - if alert
-    .alert.alert-danger.alert-dismissible role='alert'
+    .alert.alert-danger.alert-dismissible role="alert"
       = alert
-      button.btn-close(type='button'
-                       aria-label=t('close')
-                       data={ 'bs-dismiss': 'alert' })
+      button.btn-close(type="button"
+                       aria-label=t("close")
+                       data={ "bs-dismiss": "alert" })

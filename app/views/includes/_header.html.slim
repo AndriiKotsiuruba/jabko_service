@@ -2,57 +2,57 @@ nav.navbar.bg-body-tertiary.fixed-top
   .container-fluid
     .d-flex.align-items-center
       button.navbar-toggler.header-toggler(
-        type='button'
-        aria-controls='offcanvasNavbar'
-        aria-label='Toggle navigation'
-        data={ 'bs-toggle': 'offcanvas',
-               'bs-target': '#offcanvasNavbar' })
+        type="button"
+        aria-controls="offcanvasNavbar"
+        aria-label="Toggle navigation"
+        data={ "bs-toggle": "offcanvas",
+               "bs-target": "#offcanvasNavbar" })
 
         i.bi.bi-command
 
       .d-none.d-lg-block.ms-4
-        = link_to root_path, class: 'nav-link'
-          = 'back_link'
+        = link_to root_path, class: "nav-link"
+          = "back_link"
 
     .align-items-center
-      = link_to root_path, class: 'navbar-brand'
+      = link_to root_path, class: "navbar-brand"
         = image_tag "logo-#{theme}.svg",
-                    class: 'img-fluid',
-                    data: { 'theme-target': :logo }
+                    class: "img-fluid",
+                    data: { "theme-target": :logo }
     .d-flex.align-items-center
       .dropdown
         button.btn.dropdown-toggle(
-          type='button'
-          data-bs-toggle='dropdown'
-          aria-expanded='false')
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false")
 
           i.bi.bi-translate
         ul.dropdown-menu
           li
-            = button_to t('locales.en'), switch_locale_path(locale: :en),
-                        class: 'dropdown-item', method: :put
+            = button_to t("locales.en"), switch_locale_path(locale: :en),
+                        class: "dropdown-item", method: :put
           li
-            = button_to t('locales.ua'), switch_locale_path(locale: :ua),
-                        class: 'dropdown-item', method: :put
+            = button_to t("locales.ua"), switch_locale_path(locale: :ua),
+                        class: "dropdown-item", method: :put
 
-      button.btn.align-items-center(type='button'
-                                    aria-expanded='false'
-                                    data={ action: 'theme#switchTheme' }
+      button.btn.align-items-center(type="button"
+                                    aria-expanded="false"
+                                    data={ action: "theme#switchTheme" }
                                     )
-        i.bi(class=theme_icon data={ 'theme-target': 'switchBsThemeIcon' })
-  #offcanvasNavbar.offcanvas.offcanvas-start(tabindex='-1'
-                                  aria-labelledby='offcanvasNavbarLabel')
+        i.bi(class=theme_icon data={ "theme-target": "switchBsThemeIcon" })
+  #offcanvasNavbar.offcanvas.offcanvas-start(tabindex="-1"
+                                  aria-labelledby="offcanvasNavbarLabel")
     .offcanvas-header
-      = link_to root_path, class: 'navbar-brand'
+      = link_to root_path, class: "navbar-brand"
         = image_tag "logo-#{theme}.svg",
-                    class: 'img-fluid',
-                    data: { 'theme-target': :logo }
-      button.btn-close(type='button'
-                       aria-label='Close'
-                       data={ 'bs-dismiss': 'offcanvas' })
+                    class: "img-fluid",
+                    data: { "theme-target": :logo }
+      button.btn-close(type="button"
+                       aria-label="Close"
+                       data={ "bs-dismiss": "offcanvas" })
     .offcanvas-body
 
       ul.navbar-nav.justify-content-end.flex-grow-1.pe-3
 
         li.nav-item
-          = link_to 'Home', root_path, class: 'nav-link'
+          = link_to "Home", root_path, class: "nav-link"
