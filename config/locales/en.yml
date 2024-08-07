@@ -1,5 +1,10 @@
 en:
   app_name: JabkoService
-  welcome:
-    index:
-      title: Title
+  close: Close
+  locales:
+    en: Eng
+    ua: Укр
+  includes:
+    footer:
+      author: /Andrii Kotsiuruba
+      rights: '| All rights reserved.'

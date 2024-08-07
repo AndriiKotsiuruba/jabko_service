@@ -1,212 +1,47 @@
-inherit_gem:
-  test-prof: config/rubocop-rspec.yml
-
 require:
-  - rubocop-rails
   - rubocop-rspec
-  - rubocop-performance
-  - rubocop-factory_bot
-  - rubocop-rspec_rails
-
+  - rubocop-rails
+  
 AllCops:
+  TargetRubyVersion: 3.2
   NewCops: enable
   Exclude:
-    - 'bin/*'
-    - 'db/schema.rb'
-    - 'db/migrate/*'
-    - 'db/pii_schema.rb'
-    - 'db/pii_migrate/*'
-    - 'public/**/*'
-    - 'tmp/**/*'
-    - 'node_modules/**/*'
+    - 'spec/spec_helper.rb'
+    - 'vendor/bundle/**/*'
+    - 'bin/**/*'
+    - 'db/**/*'
+  SuggestExtensions: false
 
-Rails/ApplicationController:
-  Enabled: false
-
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
-Style/DisableCopsWithinSourceCodeDirective:
+Style/StringLiterals:
   Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Layout/LineLength:
+  Max: 120
 
 Style/Documentation:
   Enabled: false
+  
+Metrics/BlockLength:
+  Exclude:
+    - 'config/**/*'
+    
+RSpec/MultipleExpectations:
+  Max: 3
 
-Style/ExponentialNotation:
-  Enabled: true
-
-Style/HashEachMethods:
-  Enabled: true
-
-Style/HashTransformKeys:
-  Enabled: true
-
-Style/HashTransformValues:
-  Enabled: true
-
-Layout/ClassStructure:
-  Enabled: true
-  Categories:
-    module_inclusion:
-    extensions:
-      - include
-      - prepend
-      - extend
-      - devise
-      - enum
-      - has_secure_token
-      - multisearchable
-    attributes:
-      - attribute
-      - attr_reader
-      - attr_writer
-      - attr_accessor
-    relationships:
-      - belongs_to
-      - has_one
-      - has_many
-      - has_and_belongs_to_many
-      - accepts_nested_attributes_for
-    validations:
-      - validates
-      - validate
-    scopes:
-      - default_scope
-      - scope
-    callbacks:
-      - after_initialize
-      - after_find
-      - after_touch
-      - before_validation
-      - after_validation
-      - before_save
-      - around_save
-      - after_save
-      - before_create
-      - around_create
-      - after_create
-      - before_update
-      - around_update
-      - after_update
-      - before_destroy
-      - around_destroy
-      - after_destroy
-      - after_commit
-      - after_rollback
-  ExpectedOrder:
-    - extensions
-    - constants
-    - attributes
-    - relationships
-    - validations
-    - scopes
-    - callbacks
-    - public_class_methods
-    - public_delegate
-    - initializer
-    - public_methods
-    - protected_attributes
-    - protected_methods
-    - private_attributes
-    - private_delegate
-    - private_methods
-  Include:
-    - app/models/*.rb
-
-Layout/EmptyLinesAroundModuleBody:
-  EnforcedStyle: empty_lines
-
-Layout/EmptyLinesAroundClassBody:
-  EnforcedStyle: empty_lines
-
-Layout/SpaceAroundMethodCallOperator:
-  Enabled: true
-
-Lint/RaiseException:
-  Enabled: true
-
-Lint/StructNewOverride:
-  Enabled: true
-
-Metrics/ClassLength:
-  Max: 250
-
-Metrics/ModuleLength:
-  Max: 250
+Rails/HasAndBelongsToMany:
+  Enabled: false
 
 Metrics/AbcSize:
-  Max: 25
-
-Metrics/MethodLength:
-  Max: 20
-
-Rails/DefaultScope:
-  Enabled: true
-
-Rails/FindEach:
-  Enabled: true
-  AllowedMethods:
-    - all
-    - earliest_first
-    - oldest_first
-
-Rails/Output:
   Exclude:
-    - config/application.rb
-    - db/seeds.rb
-    - db/seeds/*.seeds.rb
+    - 'spec/**/*'
+    
+Rails/OutputSafety:
+  Enabled: false
 
-Rails/PluckId:
-  Enabled: true
-
-Rails/RedundantActiveRecordAllMethod:
-  Enabled: true
-  AllowedReceivers:
-    - Question::ResponseUnit
-    - Question::ResponseType
-
-Rails/SkipsModelValidations:
-  Exclude:
-    - db/seeds/*.seeds.rb
-
-Rails/UnknownEnv:
-  Environments:
-    - production
-    - development
-    - test
-    - staging
-
-RSpec/VariableName:
-  EnforcedStyle: snake_case
-  AllowedPatterns:
-    - X-API-Key
-
-RSpec/NoExpectationExample:
-  Exclude:
-    - spec/factories/**
-
-# Add RSwag integration in tests
-# TODO: Try to move to separate file
-RSpec:
-  Language:
-    ExampleGroups:
-      Regular:
-        - path
-        - post
-        - put
-        - get
-        - delete
-    Examples:
-      Regular:
-        - response
-    Expectations:
-      - run_test!
-
-RSpec/ExampleLength:
-  Max: 24
-
-RSpec/MultipleExpectations:
-  Max: 10
-
-RSpec/NestedGroups:
-  Max: 5
+Lint/MissingSuper:
+  Enabled: false
