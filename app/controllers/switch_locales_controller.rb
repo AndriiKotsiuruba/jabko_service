@@ -2,11 +2,7 @@
 
 class SwitchLocalesController < ApplicationController
   def update
-    locale = params[:locale] || I18n.default_locale
-    if I18n.available_locales.map(&:to_s).include?(locale)
-      cookies.permanent[:locale] = locale
-      I18n.locale = locale
-    end
+    SwitchLocales::Update.call(params, cookies, current_user)
 
     redirect_to request.referer || root_path
   end

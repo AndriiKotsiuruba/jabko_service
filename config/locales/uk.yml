@@ -1,0 +1,16 @@
+uk:
+  app_name: Ябко сервіс
+  close: Закрити
+  locales:
+    en: Eng
+    uk: Укр
+  includes:
+    footer:
+      author: /Андрій Коцюруба
+      rights: '| Всі права захищені.'
+    menu_navbar:
+      user_settings: Налаштування
+      sign_out: Вийти
+      orders: Замовлення
+      user_orders: Мої замовлення
+      user_account: Aкаунт

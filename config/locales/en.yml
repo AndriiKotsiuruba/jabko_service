@@ -3,8 +3,14 @@ en:
   close: Close
   locales:
     en: Eng
-    ua: Укр
+    uk: Укр
   includes:
     footer:
       author: /Andrii Kotsiuruba
       rights: '| All rights reserved.'
+    menu_navbar:
+      user_settings: Settings
+      sign_out: Log out
+      orders: Orders
+      user_orders: My orders
+      user_account: Account
