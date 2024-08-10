@@ -14,11 +14,11 @@ AllCops:
 
 Style/StringLiterals:
   Enabled: true
-  EnforcedStyle: double_quotes
+  EnforcedStyle: single_quotes
 
 Style/StringLiteralsInInterpolation:
   Enabled: true
-  EnforcedStyle: double_quotes
+  EnforcedStyle: single_quotes
 
 Layout/LineLength:
   Max: 120
@@ -29,6 +29,7 @@ Style/Documentation:
 Metrics/BlockLength:
   Exclude:
     - 'config/**/*'
+    - 'lib/tasks/**/*'
     
 RSpec/MultipleExpectations:
   Max: 3
@@ -45,3 +46,7 @@ Rails/OutputSafety:
 
 Lint/MissingSuper:
   Enabled: false
+
+Rails/UniqueValidationWithoutIndex:
+  Exclude:
+    - 'app/models/user.rb'

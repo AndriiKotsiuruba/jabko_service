@@ -1,0 +1,13 @@
+.dropdown
+  button.btn.dropdown-toggle(
+    type='button'
+    data-bs-toggle='dropdown'
+    aria-expanded='false')
+
+    i.bi.bi-translate
+  ul.dropdown-menu
+    - I18n.available_locales.each do |locale|
+      li
+        = button_to t("locales.#{locale}"), switch_locale_path(locale:),
+                    class: "dropdown-item#{' active' if locale.eql?(I18n.locale)}",
+                    method: :put

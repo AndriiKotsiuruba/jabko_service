@@ -1,0 +1,34 @@
+#offcanvasNavbar.offcanvas.offcanvas-start(
+  tabindex='-1'
+  aria-labelledby='offcanvasNavbarLabel')
+
+  .offcanvas-header
+    = render 'includes/logo'
+    button.btn-close(type='button'
+                      aria-label='Close'
+                      data={ 'bs-dismiss': 'offcanvas' })
+  .offcanvas-body
+    ul.navbar-nav.justify-content-end.flex-grow-1.pe-3
+      li.nav-item
+        = link_to t('.orders'), root_path, class: 'nav-link'
+        li.nav-item.dropdown
+          a.nav-link.dropdown-toggle href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'
+            i.bi.bi-person-fill-gear.me-2
+            = current_user&.full_name || t('.user_account')
+          ul.dropdown-menu
+            - if user_signed_in?
+              li
+                a.dropdown-item.disabled href='#'
+                  = t('.user_settings')
+              li
+                a.dropdown-item.disabled href='#'
+                  = t('.user_orders')
+              li
+                hr.dropdown-divider
+              li
+                = button_to t('.sign_out'), destroy_user_session_path, class: 'dropdown-item', method: :delete
+            - else
+              li
+                = link_to t('devise.shared.links.sign_in'), new_user_session_path, class: 'nav-link'
+              li
+                = link_to t('devise.shared.links.forgot_your_password'), new_user_password_path, class: 'nav-link'
